@@ -1,17 +1,14 @@
 from fpdf import FPDF
+import pandas as pd
 
 pdf = FPDF(orientation="portrait", unit="mm", format="A4")
-pdf.add_page()
-pdf.set_font(family="Times", style="B", size=12)
-pdf.cell(w=0, h=12, txt="Hello there", align="L", ln=1, border=1)
-pdf.set_font(family="Times", style="B", size=12)
-pdf.cell(w=0, h=12, txt="how is it going", align="L", ln=1, border=1)
+dataframe = pd.read_csv("topics.csv")
 
-pdf.add_page()
-pdf.set_font(family="Times", style="B", size=12)
-pdf.cell(w=0, h=12, txt="Hello there", align="L", ln=1, border=1)
-pdf.set_font(family="Times", style="B", size=12)
-pdf.cell(w=0, h=12, txt="how is it going", align="L", ln=1, border=1)
-
+for index, row in dataframe.iterrows():
+    pdf.add_page()
+    pdf.set_font(family="Times", style="B", size=24)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(w=0, h=12, txt=row["Topic"], align="L", ln=1)
+    pdf.line(10, 21, 200, 21)
 
 pdf.output("output.pdf")
